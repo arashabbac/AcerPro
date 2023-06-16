@@ -1,0 +1,62 @@
+﻿@layout EmptyLayout
+@page "/login"
+
+<div class="container mt-5">
+    <div class="card w-50 m-auto">
+        <div class="card-body">
+            <EditForm Model="Model" OnValidSubmit="LoginSubmit">
+
+                <DataAnnotationsValidator />
+
+                <h5 class="mb-4 font-weight-bold">
+                    Login
+                </h5>
+
+                <div class="text-right">
+                    <div class="form">
+
+                        <div id="username-field" class="field-wrapper input mb-2">
+                            <label for="username">
+                                Email
+                            </label>
+                            <InputText name="@nameof(Model.Email)"
+                            @bind-Value="Model.Email"
+                                       class="form-control"
+                                       autocomplete="off"
+                                       placeholder="Email" />
+                            <div class="validationField">
+                                <ValidationMessage For="(() => Model.Email)"></ValidationMessage>
+                            </div>
+                        </div>
+
+                        <div id="password-field" class="field-wrapper input mb-2">
+
+                            <label for="password">
+                                Password
+                            </label>
+                            <input name="@nameof(Model.Password)"
+                                   type="password"
+                            @bind="Model.Password"
+                                   class="form-control"
+                                   autocomplete="off"
+                                   placeholder="Password" />
+                            <div class="validationField">
+                                <ValidationMessage For="(() => Model.Password)"></ValidationMessage>
+                            </div>
+                        </div>
+
+                        <div class="d-sm-flex justify-content-between">
+                            <div class="field-wrapper">
+                                <Button HtmlType="submit" Style="margin-right:0.3em">Login</Button>
+                                <Button HtmlType="button" Style="margin-right:0.3em" OnClick='() => NavigationManager.NavigateTo("/register")'>Register</Button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </EditForm>
+        </div>
+    </div>
+</div>

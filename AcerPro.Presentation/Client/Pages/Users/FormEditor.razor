@@ -1,0 +1,73 @@
+﻿<EditForm Model="Model" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+    <input type="hidden" @bind-value="Model.Id" />
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="@nameof(Model.Firstname)">Firstname</label>
+                <div class="col-sm-9">
+                    <InputText name="@nameof(Model.Firstname)" class="form-control" @bind-Value="Model.Firstname"></InputText>
+                    <div class="error mt-2 text-danger">
+                        <ValidationMessage For="() => Model.Firstname" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="@nameof(Model.Lastname)">Lastname</label>
+                <div class="col-sm-9">
+                    <InputText name="@nameof(Model.Lastname)" class="form-control" @bind-Value="Model.Lastname"></InputText>
+                    <div class="error mt-2 text-danger">
+                        <ValidationMessage For="() => Model.Lastname" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="@nameof(Model.Email)">Email</label>
+                <div class="col-sm-9">
+                    <InputText name="@nameof(Model.Email)" class="form-control" @bind-Value="Model.Email"></InputText>
+                    <div class="error mt-2 text-danger">
+                        <ValidationMessage For="() => Model.Email" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="@nameof(Model.Password)">Password</label>
+                <div class="col-sm-9">
+                    <InputPassword name="@nameof(Model.Password)" class="form-control" @bind-Value="Model.Password"></InputPassword>
+                    <div class="error mt-2 text-danger">
+                        <ValidationMessage For="() => Model.Password" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="@nameof(Model.ConfirmPassword)">Confirm Password</label>
+                <div class="col-sm-9">
+                    <InputPassword name="@nameof(Model.ConfirmPassword)" class="form-control" @bind-Value="Model.ConfirmPassword"></InputPassword>
+                    <div class="error mt-2 text-danger">
+                        <ValidationMessage For="() => Model.ConfirmPassword" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <Button HtmlType="submit" Style="margin-right:0.3em">@(Model.Id.HasValue ? "Edit" : "Register")</Button>
+        <Button OnClick="@(() => NavigationManager.NavigateTo("/"))" HtmlType="button">Return</Button>
+    </div>
+
+</EditForm>
+
+@code {
+
+}

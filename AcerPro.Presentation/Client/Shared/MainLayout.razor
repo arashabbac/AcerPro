@@ -1,0 +1,44 @@
+﻿@using AcerPro.Presentation.Client.Services;
+@using AcerPro.Presentation.Client.ViewModels;
+@inherits LayoutComponentBase
+@inject TokenService tokenService
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            @if(_user is not null)
+            {
+                <div>
+                    <span>
+                        Welcome @_user.Firstname.ToUpper() @_user.Lastname.ToUpper()
+                    </span>
+                    <a href="/user/edit">Edit Profile</a>
+                </div>
+
+            }
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+
+@code {
+    private UserViewModel _user;
+    protected override async Task OnInitializedAsync()
+    {
+        _user =
+            await tokenService.GetUserAsync();
+
+        if (_user is null)
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+    }
+}
