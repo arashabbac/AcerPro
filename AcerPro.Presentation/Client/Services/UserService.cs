@@ -53,9 +53,36 @@ public class UserService : BaseHttpClientService
         }
     }
 
+    public async Task AddTargetAppAsync(AddTargetAppFormViewModel viewModel)
+    {
+        var response = await PostAsJsonAsync($"users/target-app", viewModel);
+
+        if (response.IsSuccess)
+        {
+            _navigationManager.NavigateTo("/target-apps");
+        }
+    }
+
+    public async Task UpdateTargetAppAsync(AddTargetAppFormViewModel viewModel)
+    {
+        var response = await PutAsJsonAsync($"users/target-app", viewModel);
+
+        if (response.IsSuccess)
+        {
+            _navigationManager.NavigateTo("/target-apps");
+        }
+    }
+
     public async Task<UserViewModel> GetCurrentUserAsync()
     {
         var response = await GetAsync<UserViewModel>($"users/get-current-user",true);
+
+        return response.Data;
+    }
+
+    public async Task<TargetAppViewModel> GetTargetAppByIdAsync(int id)
+    {
+        var response = await GetAsync<TargetAppViewModel>($"users/target-app/{id}", true);
 
         return response.Data;
     }

@@ -11,7 +11,7 @@ namespace AcerPro.Persistence
         {
         }
         public DbSet<User> Users { get; set; }
-
+        public DbSet<TargetApp> TargetApps { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

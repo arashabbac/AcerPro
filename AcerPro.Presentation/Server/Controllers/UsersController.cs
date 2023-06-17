@@ -52,4 +52,43 @@ public class UsersController : BaseController
 
         return APIResult(result);
     }
+
+    [HttpPost("target-app")]
+    [Authorize]
+    public async Task<IActionResult> TargetApp([FromBody] AddTargetAppCommand command)
+    {
+        command.UserId = AuthenticatedUser.Id;
+        var result = await Sender.Send(command);
+
+        return APIResult(result);
+    }
+
+    [HttpPut("target-app/{id}")]
+    [Authorize]
+    public async Task<IActionResult> TargetApp(int id,[FromBody] UpdateTargetAppCommand command)
+    {
+        command.TargetAppId = id;
+        command.UserId = AuthenticatedUser.Id;
+        var result = await Sender.Send(command);
+
+        return APIResult(result);
+    }
+
+    [HttpGet("target-app/{id}")]
+    [Authorize]
+    public async Task<IActionResult> TargetApp(int id)
+    {
+        var result = await Sender.Send(new GetTargetAppQuery(UserId:AuthenticatedUser.Id,TargetAppId:id));
+
+        return APIResult(result);
+    }
+
+    [HttpGet("/target-app")]
+    [Authorize]
+    public async Task<IActionResult> TargetApp()
+    {
+        var result = await Sender.Send(new GetAllTargetAppQuery(UserId: AuthenticatedUser.Id));
+
+        return APIResult(result);
+    }
 }

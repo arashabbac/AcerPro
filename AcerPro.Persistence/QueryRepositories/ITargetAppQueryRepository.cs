@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace AcerPro.Persistence.QueryRepositories;
 
-public interface IUserQueryRepository : IQueryRepository<User>
+public interface ITargetAppQueryRepository : IQueryRepository<TargetApp>
 {
-    Task<IList<UserDto>> GetAllAsync();
-    Task<UserDto> GetByIdAsync(int id);
+    Task<TargetAppDto> GetByIdAsync(int userId, int targetAppId);
+    Task<IList<TargetAppDto>> GetAllTargetAppsAsync(int userId);
 }

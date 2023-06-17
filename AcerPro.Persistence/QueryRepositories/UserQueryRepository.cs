@@ -39,4 +39,6 @@ public class UserQueryRepository : QueryRepository<User>, IUserQueryRepository
             Firstname = data.Firstname.Value,
         };
     }
+
+
 }

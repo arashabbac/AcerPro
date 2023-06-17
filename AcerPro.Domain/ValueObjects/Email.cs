@@ -1,4 +1,5 @@
-﻿using FluentResults;
+﻿using AcerPro.Common;
+using FluentResults;
 using Framework.Domain;
 using Framework.Extensions;
 using System.Text.RegularExpressions;
@@ -10,7 +11,7 @@ public sealed class Email : ValueObject
     #region Static Member(s)
     public const int MaxLenght = 150;
     public const int MinLenght = 10;
-    public static Regex ValidEmailRegex = new(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
+    public static Regex ValidEmailRegex = new(Constants.Regex.Email);
 
     public static Result<Email> Create(string value)
     {

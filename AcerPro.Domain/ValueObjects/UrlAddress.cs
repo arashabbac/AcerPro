@@ -1,4 +1,5 @@
-﻿using FluentResults;
+﻿using AcerPro.Common;
+using FluentResults;
 using Framework.Domain;
 using Framework.Extensions;
 using System.Text.RegularExpressions;
@@ -9,7 +10,7 @@ public sealed class UrlAddress : ValueObject
 {
     #region Static Member(s)
     public const int MaxLenght = 1000;
-    public static Regex ValidUrlRegex = new("^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$");
+    public static Regex ValidUrlRegex = new(Constants.Regex.Url);
 
 
     public static Result<UrlAddress> Create(string value)

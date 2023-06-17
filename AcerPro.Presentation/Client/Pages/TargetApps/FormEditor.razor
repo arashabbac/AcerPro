@@ -1,0 +1,48 @@
+﻿<EditForm Model="Model" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+    <input type="hidden" @bind-value="Model.Id" />
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="@nameof(Model.Name)">Name</label>
+                <div class="col-sm-9">
+                    <InputText name="@nameof(Model.Name)" class="form-control" @bind-Value="Model.Name"></InputText>
+                    <div class="error mt-2 text-danger">
+                        <ValidationMessage For="() => Model.Name" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="@nameof(Model.UrlAddress)">UrlAddress</label>
+                <div class="col-sm-9">
+                    <InputText name="@nameof(Model.UrlAddress)" class="form-control" @bind-Value="Model.UrlAddress"></InputText>
+                    <div class="error mt-2 text-danger">
+                        <ValidationMessage For="() => Model.UrlAddress" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="@nameof(Model.MonitoringIntervalInSeconds)">Monitoring Interval In Seconds</label>
+                <div class="col-sm-9">
+                    <AntDesign.InputNumber name="@nameof(Model.MonitoringIntervalInSeconds)" class="form-control" @bind-Value="Model.MonitoringIntervalInSeconds"></AntDesign.InputNumber>
+                    <div class="error mt-2 text-danger">
+                        <ValidationMessage For="() => Model.MonitoringIntervalInSeconds" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <Button HtmlType="submit" Style="margin-right:0.3em">@(Model.Id.HasValue ? "Edit" : "Add")</Button>
+        <Button OnClick="@(() => NavigationManager.NavigateTo("/target-apps"))" HtmlType="button">Return</Button>
+    </div>
+
+</EditForm>
+

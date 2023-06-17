@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AcerPro.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace AcerPro.Presentation.Client.ViewModels;
 public class RegisterUserFormViewModel
@@ -12,11 +13,11 @@ public class RegisterUserFormViewModel
     public string Lastname { get; set; }
 
     [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
-    [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Email is invalid")]
+    [RegularExpression(Constants.Regex.Email, ErrorMessage = "Email is invalid")]
     public string Email { get; set; }
 
     [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
-    [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,40}$",
+    [RegularExpression(Constants.Regex.Password,
         ErrorMessage = "Password lenght must be between 8 to 40 and must contain upper case, lower case and symbol characters")]
     public string Password { get; set; }
 

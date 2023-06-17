@@ -1,4 +1,5 @@
-﻿using FluentResults;
+﻿using AcerPro.Common;
+using FluentResults;
 using Framework.Domain;
 using Framework.Extensions;
 using System.Text.RegularExpressions;
@@ -9,7 +10,7 @@ public sealed class Password : ValueObject
 {
     #region Static Member(s)
     public const int MaxLenght = 64;
-    public static Regex PasswordRegex = new(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,40}$");
+    public static Regex PasswordRegex = new(Constants.Regex.Password);
     public static Result<Password> Create(string value)
     {
         value = value.Fix();

@@ -27,4 +27,19 @@ public class UserRepository : Repository<User>, IUserRepository
     {
         return await DbSet.FirstOrDefaultAsync(c => c.Email == email.ToLower());
     }
+
+    public async Task<User> GetByIdWithTargetAppAsync(int userId)
+    {
+        return await DbSet
+            .Include(c=> c.TargetApps)
+            .FirstOrDefaultAsync(c=> c.Id == userId);
+    }
+
+    public async Task<User> GetByIdWithTargetAppAndNotifierAsync(int userId)
+    {
+        return await DbSet
+            .Include(c => c.TargetApps)
+            .ThenInclude(c=> c.TargetAppNotifiers)
+            .FirstOrDefaultAsync(c => c.Id == userId);
+    }
 }

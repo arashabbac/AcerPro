@@ -4,7 +4,7 @@ using FluentResults;
 using Framework.Domain;
 using System.Text.RegularExpressions;
 using Framework.Extensions;
-
+using AcerPro.Common;
 
 namespace AcerPro.Domain.Aggregates;
 
@@ -12,7 +12,7 @@ public class Notifier : Entity<int>
 {
     #region Constant(s)
     public const int AddressMaxLength = 200;
-    public static Regex ValidPhoneNumberRegex = new(@"^\d{11}$");
+    public static Regex ValidMobileNumberRegex = new(Constants.Regex.MobileNumber);
 
     public static Result<Notifier> Create(string address,NotifierType notifierType)
     {
@@ -70,7 +70,7 @@ public class Notifier : Entity<int>
         if (notifierType == NotifierType.Email && Email.ValidEmailRegex.IsMatch(address) == false)
             return Result.Fail("Email address is not correct");
 
-        if ((notifierType == NotifierType.SMS || notifierType == NotifierType.Call) && ValidPhoneNumberRegex.IsMatch(address) == false)
+        if ((notifierType == NotifierType.SMS || notifierType == NotifierType.Call) && ValidMobileNumberRegex.IsMatch(address) == false)
             return Result.Fail("Phone number is not correct");
 
         return Result.Ok();
