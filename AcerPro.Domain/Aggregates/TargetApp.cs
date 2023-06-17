@@ -45,8 +45,8 @@ public class TargetApp : Entity<int>
     public DateTime LastDownDateTime { get; private set; }
     public bool IsHealthy { get; private set; }
 
-    private readonly List<TargetAppNotifier> _targetAppNotifiers = new();
-    public IReadOnlyList<TargetAppNotifier> TargetAppNotifiers => _targetAppNotifiers;
+    private readonly List<Notifier> _notifiers = new();
+    public IReadOnlyList<Notifier> Notifiers => _notifiers;
     public int UserId { get; private set; }
     public User? User { get; private set; }
 
@@ -67,26 +67,26 @@ public class TargetApp : Entity<int>
         return Result.Ok(this);
     }
 
-    internal Result AddNotifier(string address,NotifierType notifierType)
+    internal Result<Notifier> AddNotifier(string address,NotifierType notifierType)
     {
-        var notiferResult = Notifier.Create(address, notifierType);
+        var notiferResult = Notifier.Create(Id,address, notifierType);
 
         if (notiferResult.IsFailed)
             return Result.Fail(notiferResult.Errors);
 
-        if (_targetAppNotifiers.Any(c=> c.Notifier.NotifierType == notifierType))
+        if (_notifiers.Any(c=> c.NotifierType == notifierType))
         {
-            var endpointNotifier = _targetAppNotifiers.Where(c => c.Notifier.NotifierType == notifierType).First();
-            var updateResult = endpointNotifier.Notifier.Update(address);
+            var notifier = _notifiers.Where(c => c.NotifierType == notifierType).First();
+            var updateResult = notifier.Update(address);
 
             if (updateResult.IsFailed)
                 return updateResult;
 
-            return Result.Ok();
+            return Result.Ok(updateResult.Value);
         }
 
-        _targetAppNotifiers.Add(new TargetAppNotifier(this,notiferResult.Value));
-        return Result.Ok();
+        _notifiers.Add(notiferResult.Value);
+        return Result.Ok(notiferResult.Value);
     }
 
 

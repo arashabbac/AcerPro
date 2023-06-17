@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace AcerPro.Presentation.Server.Validators;
 
-public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
 {
-    public CreateUserCommandValidator()
+    public RegisterUserCommandValidator()
     {
         RuleFor(c => c.Firstname)
             .NotEmpty()

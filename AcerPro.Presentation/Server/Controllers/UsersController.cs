@@ -16,10 +16,10 @@ public class UsersController : BaseController
         AuthenticatedUser = httpContextAccessor.HttpContext?.Items["User"] as UserDto;
     }
 
-    public UserDto AuthenticatedUser { get; }
+    public UserDto? AuthenticatedUser { get; }
         
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] CreateUserCommand command)
+    public async Task<IActionResult> Register([FromBody] RegisterUserCommand command)
     {
         var result = await Sender.Send(command);
 
@@ -34,11 +34,11 @@ public class UsersController : BaseController
         return APIResult(result);
     }
 
-    [HttpPut("update")]
+    [HttpPut]
     [Authorize]
     public async Task<IActionResult> Update([FromBody] UpdateUserCommand command)
     {
-        command.Id = AuthenticatedUser.Id;
+        command.Id = AuthenticatedUser!.Id;
         var result = await Sender.Send(command);
 
         return APIResult(result);
@@ -48,7 +48,7 @@ public class UsersController : BaseController
     [Authorize]
     public async Task<IActionResult> GetCurrentUser()
     {
-        var result = await Sender.Send(new GetCurrentUserQuery(AuthenticatedUser.Id));
+        var result = await Sender.Send(new GetCurrentUserQuery(AuthenticatedUser!.Id));
 
         return APIResult(result);
     }
@@ -57,7 +57,7 @@ public class UsersController : BaseController
     [Authorize]
     public async Task<IActionResult> TargetApp([FromBody] AddTargetAppCommand command)
     {
-        command.UserId = AuthenticatedUser.Id;
+        command.UserId = AuthenticatedUser!.Id;
         var result = await Sender.Send(command);
 
         return APIResult(result);
@@ -68,7 +68,7 @@ public class UsersController : BaseController
     public async Task<IActionResult> TargetApp(int id,[FromBody] UpdateTargetAppCommand command)
     {
         command.TargetAppId = id;
-        command.UserId = AuthenticatedUser.Id;
+        command.UserId = AuthenticatedUser!.Id;
         var result = await Sender.Send(command);
 
         return APIResult(result);
@@ -78,16 +78,26 @@ public class UsersController : BaseController
     [Authorize]
     public async Task<IActionResult> TargetApp(int id)
     {
-        var result = await Sender.Send(new GetTargetAppQuery(UserId:AuthenticatedUser.Id,TargetAppId:id));
+        var result = await Sender.Send(new GetTargetAppQuery(UserId:AuthenticatedUser!.Id,TargetAppId:id));
 
         return APIResult(result);
     }
 
-    [HttpGet("/target-app")]
+    [HttpGet("target-app")]
     [Authorize]
     public async Task<IActionResult> TargetApp()
     {
-        var result = await Sender.Send(new GetAllTargetAppQuery(UserId: AuthenticatedUser.Id));
+        var result = await Sender.Send(new GetAllTargetAppsWithNotifiersQuery(UserId: AuthenticatedUser!.Id));
+
+        return APIResult(result);
+    }
+
+    [HttpPost("target-app/notifier")]
+    [Authorize]
+    public async Task<IActionResult> Notifier([FromBody] AddNotifierCommand command)
+    {
+        command.UserId = AuthenticatedUser!.Id;
+        var result = await Sender.Send(command);
 
         return APIResult(result);
     }

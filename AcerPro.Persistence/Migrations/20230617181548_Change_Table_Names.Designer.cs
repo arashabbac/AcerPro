@@ -4,6 +4,7 @@ using AcerPro.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AcerPro.Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230617181548_Change_Table_Names")]
+    partial class ChangeTableNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,12 +52,7 @@ namespace AcerPro.Persistence.Migrations
                     b.Property<byte>("NotifierType")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("TargetAppId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TargetAppId");
 
                     b.ToTable("Notifiers", (string)null);
                 });
@@ -104,6 +102,21 @@ namespace AcerPro.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TargetApps", (string)null);
+                });
+
+            modelBuilder.Entity("AcerPro.Domain.Aggregates.TargetAppNotifier", b =>
+                {
+                    b.Property<int>("TargetAppId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NotifierId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TargetAppId", "NotifierId");
+
+                    b.HasIndex("NotifierId");
+
+                    b.ToTable("TargetAppNotifiers", (string)null);
                 });
 
             modelBuilder.Entity("AcerPro.Domain.Aggregates.User", b =>
@@ -156,17 +169,6 @@ namespace AcerPro.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("AcerPro.Domain.Aggregates.Notifier", b =>
-                {
-                    b.HasOne("AcerPro.Domain.Aggregates.TargetApp", "TargetApp")
-                        .WithMany("Notifiers")
-                        .HasForeignKey("TargetAppId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("TargetApp");
-                });
-
             modelBuilder.Entity("AcerPro.Domain.Aggregates.TargetApp", b =>
                 {
                     b.HasOne("AcerPro.Domain.Aggregates.User", "User")
@@ -178,9 +180,33 @@ namespace AcerPro.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AcerPro.Domain.Aggregates.TargetAppNotifier", b =>
+                {
+                    b.HasOne("AcerPro.Domain.Aggregates.Notifier", "Notifier")
+                        .WithMany("TargetAppNotifiers")
+                        .HasForeignKey("NotifierId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AcerPro.Domain.Aggregates.TargetApp", "TargetApp")
+                        .WithMany("TargetAppNotifiers")
+                        .HasForeignKey("TargetAppId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Notifier");
+
+                    b.Navigation("TargetApp");
+                });
+
+            modelBuilder.Entity("AcerPro.Domain.Aggregates.Notifier", b =>
+                {
+                    b.Navigation("TargetAppNotifiers");
+                });
+
             modelBuilder.Entity("AcerPro.Domain.Aggregates.TargetApp", b =>
                 {
-                    b.Navigation("Notifiers");
+                    b.Navigation("TargetAppNotifiers");
                 });
 
             modelBuilder.Entity("AcerPro.Domain.Aggregates.User", b =>

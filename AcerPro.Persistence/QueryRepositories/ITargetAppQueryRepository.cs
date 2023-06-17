@@ -9,5 +9,5 @@ namespace AcerPro.Persistence.QueryRepositories;
 public interface ITargetAppQueryRepository : IQueryRepository<TargetApp>
 {
     Task<TargetAppDto> GetByIdAsync(int userId, int targetAppId);
-    Task<IList<TargetAppDto>> GetAllTargetAppsAsync(int userId);
+    Task<IEnumerable<TargetAppDto>> GetAllTargetAppsWithNotifiersAsync(int userId);
 }

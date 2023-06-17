@@ -9,7 +9,7 @@ public partial class Add
 {
     [Inject]
     public UserService UserService { get; set; }
-    public AddTargetAppFormViewModel Model { get; set; }
+    public TargetAppFormViewModel Model { get; set; }
 
     protected override void OnInitialized()
     {

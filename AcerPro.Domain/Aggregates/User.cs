@@ -111,7 +111,7 @@ public sealed class User : AggregateRoot<int>
         return result;
     }
 
-    public Result AddNotifierToTargetApp(int targetAppId,
+    public Result<Notifier> AddNotifierToTargetApp(int targetAppId,
         string notifierAddress,
         NotifierType notifierType)
     {
@@ -125,7 +125,7 @@ public sealed class User : AggregateRoot<int>
         if (result.IsFailed)
             return Result.Fail(result.Errors);
 
-        return Result.Ok();
+        return Result.Ok(result.Value);
     }
 
     private bool IsEmailModified(Email email) => !Email.Value.Equals(email.Value);

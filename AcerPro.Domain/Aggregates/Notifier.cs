@@ -14,7 +14,7 @@ public class Notifier : Entity<int>
     public const int AddressMaxLength = 200;
     public static Regex ValidMobileNumberRegex = new(Constants.Regex.MobileNumber);
 
-    public static Result<Notifier> Create(string address,NotifierType notifierType)
+    public static Result<Notifier> Create(int targetAppId,string address,NotifierType notifierType)
     {
         address = address.Fix();
 
@@ -29,15 +29,17 @@ public class Notifier : Entity<int>
         if (checkNotifierAddressByItsType.IsFailed)
             return Result.Fail<Notifier>(checkNotifierAddressByItsType.Errors);
 
-        return Result.Ok(new Notifier(address, notifierType));
+        return Result.Ok(new Notifier(targetAppId,address, notifierType));
     }
     #endregion
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private Notifier() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private Notifier(string address,
+    private Notifier(int targetAppId,
+        string address,
         NotifierType notifierType)
     {
+        TargetAppId = targetAppId;
         Address = address;
         NotifierType = notifierType;
     }
@@ -46,10 +48,10 @@ public class Notifier : Entity<int>
     public NotifierType NotifierType { get; private set; }
     public bool IsDeleted { get; private set; }
 
-    private readonly List<TargetAppNotifier> _targetAppNotifiers = new();
-    public IReadOnlyList<TargetAppNotifier> TargetAppNotifiers => _targetAppNotifiers;
+    public int TargetAppId { get; private set; }
+    public TargetApp TargetApp { get; private set; } 
 
-    internal Result Update(string address)
+    internal Result<Notifier> Update(string address)
     {
         address = address.Fix();
 
@@ -60,7 +62,7 @@ public class Notifier : Entity<int>
             return Result.Fail($"Name value must be less than {AddressMaxLength} characters");
 
         Address = address;
-        return Result.Ok();
+        return Result.Ok(this);
     }
 
     internal void Delete() => IsDeleted = true;

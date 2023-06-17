@@ -20,6 +20,5 @@ public class AddTargetAppCommandValidator : AbstractValidator<AddTargetAppComman
                 .WithMessage("MonitoringIntervalInSeconds is required")
             .GreaterThan(0)
                 .WithMessage("MonitoringIntervalInSeconds must be greater than 0");
-
     }
 }

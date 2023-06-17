@@ -65,4 +65,14 @@ public class FakeUserRepository : IUserRepository
     {
         throw new NotImplementedException();
     }
+
+    public Task<User> GetByIdWithTargetAppAsync(int userId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<User> GetByIdWithTargetAppAndNotifierAsync(int userId)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -39,7 +39,7 @@ public class UserRepository : Repository<User>, IUserRepository
     {
         return await DbSet
             .Include(c => c.TargetApps)
-            .ThenInclude(c=> c.TargetAppNotifiers)
+            .ThenInclude(c=> c.Notifiers)
             .FirstOrDefaultAsync(c => c.Id == userId);
     }
 }

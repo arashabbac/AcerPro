@@ -8,6 +8,8 @@ internal class NotifierMapping : IEntityTypeConfiguration<Notifier>
 {
     public void Configure(EntityTypeBuilder<Notifier> builder)
     {
+        builder.ToTable("Notifiers");
+
         builder.Property(c => c.Address)
             .HasColumnName(nameof(Notifier.Address))
             .HasMaxLength(Notifier.AddressMaxLength)

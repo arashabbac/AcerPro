@@ -1,6 +1,50 @@
 ﻿@page "/target-apps"
+@using AcerPro.Presentation.Client.ViewModels;
 
+<PageTitle>Target Apps</PageTitle>
 
+<div class="container">
+
+    <div class="card border-0">
+        <div class="card-body">
+            <h4 class="card-title">Target Apps</h4>
+            @if (TargetApps == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <p class="card-description d-flex justify-content-end">
+                    <Button OnClick="@(() => NavigationManager.NavigateTo("/target-apps/add"))">Create</Button>
+                </p>
+
+                <Table DataSource="@TargetApps" TItem="TargetAppViewModel" Loading="@_loading" OnExpand="OnRowExpand">
+                    <RowTemplate>
+                        <PropertyColumn Title="Name" Property="@(c=> c.Name)" />
+                        <PropertyColumn Title="Url Address" Property="@(c=>c.UrlAddress)" />
+                        <PropertyColumn Title="Monitoring Interval In Seconds" Property="@(c=> c.MonitoringIntervalInSeconds)" />
+                        <PropertyColumn Title="Actions" Property="@(c=> c.Id)">
+                            <Button OnClick="@(() => NavigationManager.NavigateTo($"/target-apps/edit/{context.Id}"))" HtmlType="button">Edit</Button>
+                            <Button Type="@ButtonType.Link" OnClick="@(() => NavigationManager.NavigateTo($"/target-apps/add-notifier/{context.Id}"))" HtmlType="button">Add Notifier</Button>
+                        </PropertyColumn>
+                    </RowTemplate>
+                    <ExpandTemplate Context="rowData">
+                        <Table DataSource="rowData.Data.Notifiers" Loading="rowData.Data.Notifiers==null" HidePagination>
+                        <PropertyColumn Property="c=> c.Address" />
+                        <PropertyColumn Property="c=> c.NotifierType" />
+@*                        <ActionColumn Title="Action">
+                            <Space Size="@("middle")">
+                                <SpaceItem><a>Pause</a></SpaceItem>
+                                <SpaceItem><a>Stop</a></SpaceItem>
+                            </Space>
+                        </ActionColumn>*@
+                    </Table>
+                </ExpandTemplate>
+                </Table>
+            }
+        </div>
+    </div>
+</div>
 @code {
 
 }

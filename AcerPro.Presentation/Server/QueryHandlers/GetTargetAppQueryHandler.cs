@@ -10,17 +10,17 @@ namespace AcerPro.Presentation.Server.QueryHandlers;
 
 public class GetTargetAppQueryHandler : IRequestHandler<GetTargetAppQuery, Result<TargetAppDto>>
 {
-    private readonly IUserQueryRepository _userQueryRepository;
+    private readonly ITargetAppQueryRepository _targetAppQueryRepository;
 
-    public GetTargetAppQueryHandler(IUserQueryRepository userQueryRepository)
+    public GetTargetAppQueryHandler(ITargetAppQueryRepository targetAppQueryRepository)
     {
-        _userQueryRepository = userQueryRepository;
+        _targetAppQueryRepository = targetAppQueryRepository;
     }
 
     public async Task<Result<TargetAppDto>> Handle(GetTargetAppQuery request, CancellationToken cancellationToken)
     {
         //*************************************************
-        var targetApp = await _userQueryRepository.GetTargetAppByIdAsync(request.UserId,request.TargetAppId);
+        var targetApp = await _targetAppQueryRepository.GetByIdAsync(request.UserId,request.TargetAppId);
 
         if (targetApp is null)
             return Result.Fail<TargetAppDto>("Target app not found");

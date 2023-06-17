@@ -1,0 +1,53 @@
+﻿@page "/target-apps/add-notifier/{TargetAppId:int}"
+@using AcerPro.Presentation.Client.ViewModels;
+
+<div class="container mt-5">
+    <div class="card w-75 m-auto">
+        <div class="card-body">
+            <h4 class="card-title mb-3">Add Notifier</h4>
+            <EditForm Model="Model" OnValidSubmit="Submit">
+                <DataAnnotationsValidator />
+
+                <input type="hidden" @bind-value="Model.TargetAppId" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="@nameof(Model.NotifierType)">NotifierType</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" @bind="Model.NotifierType">
+                                    <option>Select Type</option>
+                                    @foreach (var type in Enum.GetValues(typeof(NotifierTypeViewModel)))
+                                    {
+                                        <option value="@type">@type.ToString()</option>
+                                    }
+                                </select>
+                                <div class="error mt-2 text-danger">
+                                    <ValidationMessage For="() => Model.NotifierType" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="@nameof(Model.Address)">Address</label>
+                            <div class="col-sm-9">
+                                <InputText name="@nameof(Model.Address)" class="form-control" @bind-Value="Model.Address"></InputText>
+                                <div class="error mt-2 text-danger">
+                                    <ValidationMessage For="() => Model.Address" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <Button HtmlType="submit" Style="margin-right:0.3em">Add</Button>
+                    <Button OnClick="@(() => NavigationManager.NavigateTo("/target-apps"))" HtmlType="button">Return</Button>
+                </div>
+
+            </EditForm>
+        </div>
+    </div>
+</div>

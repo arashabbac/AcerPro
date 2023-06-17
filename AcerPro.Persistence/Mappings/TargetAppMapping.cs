@@ -9,6 +9,8 @@ internal class TargetAppMapping : IEntityTypeConfiguration<TargetApp>
 {
     public void Configure(EntityTypeBuilder<TargetApp> builder)
     {
+        builder.ToTable("TargetApps");
+
         builder.Property(c => c.Name)
             .HasColumnName(nameof(TargetApp.Name))
             .HasMaxLength(Name.MaxLenght)
@@ -22,5 +24,10 @@ internal class TargetAppMapping : IEntityTypeConfiguration<TargetApp>
             .IsUnicode(false)
             .IsRequired()
             .HasConversion(c => c.Value, c => UrlAddress.Create(c).Value);
+
+        builder.HasMany(c=> c.Notifiers)
+            .WithOne(c=> c.TargetApp)
+            .HasForeignKey(c=>c.TargetAppId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

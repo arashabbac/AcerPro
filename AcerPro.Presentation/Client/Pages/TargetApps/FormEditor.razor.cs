@@ -9,7 +9,8 @@ public partial class FormEditor
     public EventCallback OnValidSubmit { get; set; }
 
     [Parameter]
-    public AddTargetAppFormViewModel Model { get; set; }
+    public TargetAppFormViewModel Model { get; set; }
+
 
     private void HandleValidSubmit()
     {

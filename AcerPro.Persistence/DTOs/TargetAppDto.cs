@@ -1,4 +1,6 @@
-﻿namespace AcerPro.Persistence.DTOs;
+﻿using System.Collections.Generic;
+
+namespace AcerPro.Persistence.DTOs;
 
 public class TargetAppDto
 {
@@ -6,4 +8,5 @@ public class TargetAppDto
     public string Name { get; set; }
     public string UrlAddress { get; set; }
     public int MonitoringIntervalInSeconds { get; set; }
+    public List<NotifierDto> Notifiers { get; set; }
 }

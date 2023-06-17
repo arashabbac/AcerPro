@@ -20,7 +20,7 @@ public class UpdateTargetAppCommandHandler : IRequestHandler<UpdateTargetAppComm
     public async Task<Result<int>> Handle(UpdateTargetAppCommand request, CancellationToken cancellationToken)
     {
         //*************************************************
-        var foundedUser = await _userRepository.FindAsync(request.UserId, cancellationToken) ??
+        var foundedUser = await _userRepository.GetByIdWithTargetAppAsync(request.UserId) ??
             throw new System.ApplicationException("The user not found! it might be deleted. contact your system provider!");
         //*************************************************
 

@@ -14,9 +14,10 @@
             {
                 <div>
                     <span>
-                        Welcome @_user.Firstname.ToUpper() @_user.Lastname.ToUpper()
+                        @_user.Firstname @_user.Lastname
                     </span>
                     <a href="/user/edit">Edit Profile</a>
+                    <a class="text-danger" @onclick="Logout">Logout</a>
                 </div>
 
             }
@@ -40,5 +41,11 @@
         {
             NavigationManager.NavigateTo("/login");
         }
+    }
+
+    private async Task Logout()
+    {
+        await tokenService.RemoveAsync();
+        NavigationManager.NavigateTo("/login");
     }
 }

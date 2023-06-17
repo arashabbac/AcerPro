@@ -26,15 +26,21 @@ public class TargetAppQueryRepository : QueryRepository<TargetApp>, ITargetAppQu
             .FirstOrDefaultAsync();
     }
 
-    public async Task<IList<TargetAppDto>> GetAllTargetAppsAsync(int userId)
+    public async Task<IEnumerable<TargetAppDto>> GetAllTargetAppsWithNotifiersAsync(int userId)
     {
-        return await DbSet.Where(c => c.Id == userId && c.UserId == userId)
+        return await DbSet.Where(c => c.UserId == userId)
             .Select(c => new TargetAppDto
             {
                 Id = c.Id,
                 MonitoringIntervalInSeconds = c.MonitoringIntervalInSeconds,
                 Name = c.Name.Value,
                 UrlAddress = c.UrlAddress.Value,
+                Notifiers = c.Notifiers.Select(q=> new NotifierDto
+                {
+                    Address = q.Address,
+                    Id = q.Id,
+                    NotifierType = (NotifierTypeDto)q.NotifierType,
+                }).ToList(),
             })
             .ToListAsync();
     }

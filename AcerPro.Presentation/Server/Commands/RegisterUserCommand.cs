@@ -3,7 +3,7 @@ using MediatR;
 
 namespace AcerPro.Presentation.Server.Commands;
 
-public record CreateUserCommand(string Firstname,
+public record RegisterUserCommand(string Firstname,
     string Lastname,
     string Email,
     string Password,

@@ -23,9 +23,9 @@ public static class ServiceConfigurations
             options.Filters.Add(typeof(ValidateModelStateAttribute));
         });
         services.AddFluentValidationAutoValidation(o => o.DisableDataAnnotationsValidation = true);
-        services.AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
+        services.AddValidatorsFromAssemblyContaining<RegisterUserCommandValidator>();
 
-        services.AddMediatR(typeof(CreateUserCommand).Assembly);
+        services.AddMediatR(typeof(RegisterUserCommand).Assembly);
         services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
         services.AddSwaggerGen();
         services.AddHttpContextAccessor();
@@ -50,5 +50,6 @@ public static class ServiceConfigurations
     {
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<IUserQueryRepository, UserQueryRepository>();
+        services.AddTransient<ITargetAppQueryRepository,TargetAppQueryRepository>();
     }
 }

@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace AcerPro.Presentation.Server.CommandHandlers;
 
-public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Result<int>>
+public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result<int>>
 {
     private readonly IUserRepository _userRepository;
 
-    public CreateUserCommandHandler(IUserRepository userRepository)
+    public RegisterUserCommandHandler(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
 
-    public async Task<Result<int>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<int>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         var emailResult = Email.Create(request.Email);
         var lastnameResult = Name.Create(request.Lastname);

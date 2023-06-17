@@ -2,6 +2,7 @@
 using AntDesign;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -36,7 +37,7 @@ public class UserService : BaseHttpClientService
 
     public async Task UpdateAsync(RegisterUserFormViewModel viewModel)
     {
-        var response = await PutAsJsonAsync($"users/update", viewModel,true);
+        var response = await PutAsJsonAsync($"users", viewModel,true);
 
         if (response.IsSuccess)
             _navigationManager.NavigateTo("/");
@@ -53,7 +54,7 @@ public class UserService : BaseHttpClientService
         }
     }
 
-    public async Task AddTargetAppAsync(AddTargetAppFormViewModel viewModel)
+    public async Task AddTargetAppAsync(TargetAppFormViewModel viewModel)
     {
         var response = await PostAsJsonAsync($"users/target-app", viewModel);
 
@@ -63,9 +64,9 @@ public class UserService : BaseHttpClientService
         }
     }
 
-    public async Task UpdateTargetAppAsync(AddTargetAppFormViewModel viewModel)
+    public async Task UpdateTargetAppAsync(TargetAppFormViewModel viewModel)
     {
-        var response = await PutAsJsonAsync($"users/target-app", viewModel);
+        var response = await PutAsJsonAsync($"users/target-app/{viewModel.Id}", viewModel);
 
         if (response.IsSuccess)
         {
@@ -85,5 +86,22 @@ public class UserService : BaseHttpClientService
         var response = await GetAsync<TargetAppViewModel>($"users/target-app/{id}", true);
 
         return response.Data;
+    }
+
+    public async Task<List<TargetAppViewModel>> GetAllTargetAppsAsync()
+    {
+        var response = await GetAsync<List<TargetAppViewModel>>($"users/target-app", true);
+
+        return response.Data;
+    }
+
+    public async Task AddNotifierAsync(NotifierFormViewModel viewModel)
+    {
+        var response = await PostAsJsonAsync($"users/target-app/notifier", viewModel);
+
+        if (response.IsSuccess)
+        {
+            _navigationManager.NavigateTo("/target-apps");
+        }
     }
 }
