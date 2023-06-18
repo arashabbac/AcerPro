@@ -18,8 +18,8 @@ public class UserQueryRepository : QueryRepository<User>, IUserQueryRepository
         return await DbSet.OrderByDescending(c => c.Id).Select(c => new UserDto
         {
             Id = c.Id,
-            Firstname = c.Firstname.Value,
-            Lastname = c.Lastname.Value,
+            Firstname = c.Firstname,
+            Lastname = c.Lastname,
             Email = c.Email.Value,
         }).ToListAsync();
     }
@@ -34,9 +34,9 @@ public class UserQueryRepository : QueryRepository<User>, IUserQueryRepository
         return new UserDto
         {
             Id = data.Id,
-            Email = data.Email.Value,
-            Lastname = data.Lastname.Value,
-            Firstname = data.Firstname.Value,
+            Email = data.Email,
+            Lastname = data.Lastname,
+            Firstname = data.Firstname,
         };
     }
 

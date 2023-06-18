@@ -49,4 +49,9 @@ public sealed class UrlAddress : ValueObject
     {
         yield return Value;
     }
+
+    public static implicit operator string(UrlAddress value)
+    {
+        return value.Value;
+    }
 }

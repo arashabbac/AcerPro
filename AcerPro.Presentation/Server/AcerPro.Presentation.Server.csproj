@@ -3,10 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>929a57b6-d000-4ee6-94cb-a19ca342c1cb</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	  <Nullable>enable</Nullable>
-    <DockerfileContext>..\..</DockerfileContext>
-    <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AcerPro.Persistence\AcerPro.Persistence.csproj" />
+    <ProjectReference Include="..\..\AcerPro.Application\AcerPro.Application.csproj" />
     <ProjectReference Include="..\Client\AcerPro.Presentation.Client.csproj" />
   </ItemGroup>
 

@@ -1,5 +1,6 @@
 ﻿@page "/target-apps"
 @using AcerPro.Presentation.Client.ViewModels;
+@using AcerPro.Presentation.Client;
 
 <PageTitle>Target Apps</PageTitle>
 
@@ -22,7 +23,19 @@
                     <RowTemplate>
                         <PropertyColumn Title="Name" Property="@(c=> c.Name)" />
                         <PropertyColumn Title="Url Address" Property="@(c=>c.UrlAddress)" />
-                        <PropertyColumn Title="Monitoring Interval In Seconds" Property="@(c=> c.MonitoringIntervalInSeconds)" />
+                        <PropertyColumn Title="Monitoring Interval(sec)" Property="@(c=> c.MonitoringIntervalInSeconds)" />
+                        <PropertyColumn Title="Healthy" Property="@(c=> c.IsHealthy)" >
+                            @if(context.IsHealthy.HasValue && context.IsHealthy.Value)
+                            {
+                                <Tag Color="green">Healthy</Tag>
+                            }
+                            else if (context.IsHealthy.HasValue && context.IsHealthy.Value == false)
+                            {
+                                <Tag Color="red">UnHealthy</Tag>
+                            }
+                        </PropertyColumn>
+                        <PropertyColumn Title="Last Down DateTime" Property="@(c=> c.LastDownDateTime)" />
+                        <PropertyColumn Title="Last Modified DateTime" Property="@(c=> c.LastModifiedDateTime)" />
                         <PropertyColumn Title="Actions" Property="@(c=> c.Id)">
                             <Button OnClick="@(() => NavigationManager.NavigateTo($"/target-apps/edit/{context.Id}"))" HtmlType="button">Edit</Button>
                             <Button Type="@ButtonType.Link" OnClick="@(() => NavigationManager.NavigateTo($"/target-apps/add-notifier/{context.Id}"))" HtmlType="button">Add Notifier</Button>
@@ -30,14 +43,10 @@
                     </RowTemplate>
                     <ExpandTemplate Context="rowData">
                         <Table DataSource="rowData.Data.Notifiers" Loading="rowData.Data.Notifiers==null" HidePagination>
-                        <PropertyColumn Property="c=> c.Address" />
-                        <PropertyColumn Property="c=> c.NotifierType" />
-@*                        <ActionColumn Title="Action">
-                            <Space Size="@("middle")">
-                                <SpaceItem><a>Pause</a></SpaceItem>
-                                <SpaceItem><a>Stop</a></SpaceItem>
-                            </Space>
-                        </ActionColumn>*@
+                        <PropertyColumn Title="Address" Property="c=> c.Address" />
+                        <PropertyColumn Title="Notifier Type" Property="c=> c.NotifierType">
+                            <Tag Color="@context.NotifierType.GetNotifierColor()">@context.NotifierType</Tag>
+                        </PropertyColumn>
                     </Table>
                 </ExpandTemplate>
                 </Table>

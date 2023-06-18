@@ -1,7 +1,7 @@
-﻿using AcerPro.Persistence.DTOs;
-using AcerPro.Presentation.Server.Commands;
+﻿using AcerPro.Application.Commands;
+using AcerPro.Application.Queries;
+using AcerPro.Persistence.DTOs;
 using AcerPro.Presentation.Server.Infrastructures;
-using AcerPro.Presentation.Server.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

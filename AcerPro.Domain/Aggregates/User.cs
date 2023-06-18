@@ -128,5 +128,27 @@ public sealed class User : AggregateRoot<int>
         return Result.Ok(result.Value);
     }
 
+    public Result SetTargetAppIsNotHealthy(int targetAppId)
+    {
+        var targetApp = _targetApps.Where(c => c.Id == targetAppId).FirstOrDefault();
+
+        if (targetApp is null)
+            return Result.Fail("TargetApp not found");
+
+        targetApp.NotHealty();
+        return Result.Ok();
+    }
+
+    public Result SetTargetAppIsHealthy(int targetAppId)
+    {
+        var targetApp = _targetApps.Where(c => c.Id == targetAppId).FirstOrDefault();
+
+        if (targetApp is null)
+            return Result.Fail("TargetApp not found");
+
+        targetApp.Healthy();
+        return Result.Ok();
+    }
+
     private bool IsEmailModified(Email email) => !Email.Value.Equals(email.Value);
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using AcerPro.Application;
 
 namespace AcerPro.Presentation.Server.Infrastructures;
 

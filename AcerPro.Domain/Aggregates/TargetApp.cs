@@ -42,8 +42,8 @@ public class TargetApp : Entity<int>
     public Name Name { get; private set; }
     public UrlAddress UrlAddress { get; private set; }
     public int MonitoringIntervalInSeconds { get; private set; }
-    public DateTime LastDownDateTime { get; private set; }
-    public bool IsHealthy { get; private set; }
+    public DateTime? LastDownDateTime { get; private set; }
+    public bool? IsHealthy { get; private set; }
 
     private readonly List<Notifier> _notifiers = new();
     public IReadOnlyList<Notifier> Notifiers => _notifiers;
@@ -66,6 +66,14 @@ public class TargetApp : Entity<int>
 
         return Result.Ok(this);
     }
+
+    internal void NotHealty()
+    {
+        IsHealthy = false;
+        LastDownDateTime = DateTime.Now;
+    }
+
+    internal void Healthy() => IsHealthy = true;
 
     internal Result<Notifier> AddNotifier(string address,NotifierType notifierType)
     {

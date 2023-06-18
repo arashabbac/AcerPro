@@ -10,4 +10,5 @@ public interface ITargetAppQueryRepository : IQueryRepository<TargetApp>
 {
     Task<TargetAppDto> GetByIdAsync(int userId, int targetAppId);
     Task<IEnumerable<TargetAppDto>> GetAllTargetAppsWithNotifiersAsync(int userId);
+    Task<IEnumerable<TargetAppDto>> GetAllTargetAppsWithNotifiersAsync();
 }

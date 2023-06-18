@@ -46,4 +46,9 @@ public sealed class Name : ValueObject
     {
         yield return Value;
     }
+
+    public static implicit operator string(Name value)
+    {
+        return value.Value;
+    }
 }
