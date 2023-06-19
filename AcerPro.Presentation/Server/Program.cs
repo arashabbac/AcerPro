@@ -1,9 +1,24 @@
 using AcerPro.Presentation.Server.Infrastructures;
 using AcerPro.Presentation.Server.Middlewares;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Warning()
+    .WriteTo.Console()
+    .WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("ConnectionString"), new MSSqlServerSinkOptions
+    {
+        TableName = "Logs",
+        SchemaName = "Serilog",
+        AutoCreateSqlDatabase = true,
+        AutoCreateSqlTable = true,
+    }).CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Add services to the container.
 #region Configure Services
@@ -44,5 +59,15 @@ app.MapFallbackToFile("index.html");
 
 app.Run();
 
-// for integration test
-public partial class Program { }
+
+static void SetupLogger(IConfiguration configuration)
+{
+    // Configure Serilog to use an MSSqlServer sink
+    Log.Logger = new LoggerConfiguration()
+        .WriteTo.Console().MinimumLevel.Information()
+        .WriteTo.MSSqlServer(
+            connectionString: configuration.GetConnectionString("ConnectionString"),
+            sinkOptions: new MSSqlServerSinkOptions { TableName = "Logs" }).MinimumLevel.Warning()
+        .CreateLogger();
+
+}

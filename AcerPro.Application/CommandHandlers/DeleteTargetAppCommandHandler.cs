@@ -1,24 +1,23 @@
 ﻿using AcerPro.Application.Commands;
 using AcerPro.Application.Jobs;
 using AcerPro.Domain.Contracts;
-using AcerPro.Domain.ValueObjects;
 using FluentResults;
 using MediatR;
 
 namespace AcerPro.Application.CommandHandlers;
 
-public class UpdateTargetAppCommandHandler : IRequestHandler<UpdateTargetAppCommand, Result<int>>
+public class DeleteTargetAppCommandHandler : IRequestHandler<DeleteTargetAppCommand, Result>
 {
     private readonly IUserRepository _userRepository;
     private readonly UrlSchedulerService _urlSchedulerService;
-    public UpdateTargetAppCommandHandler(IUserRepository userRepository,
+    public DeleteTargetAppCommandHandler(IUserRepository userRepository,
         UrlSchedulerService urlSchedulerService)
     {
         _userRepository = userRepository;
         _urlSchedulerService = urlSchedulerService;
     }
 
-    public async Task<Result<int>> Handle(UpdateTargetAppCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(DeleteTargetAppCommand request, CancellationToken cancellationToken)
     {
         //*************************************************
         var foundedUser = await _userRepository.GetByIdWithTargetAppAsync(request.UserId) ??
@@ -26,25 +25,15 @@ public class UpdateTargetAppCommandHandler : IRequestHandler<UpdateTargetAppComm
         //*************************************************
 
         //*************************************************
-        var nameResult = Name.Create(request.Name);
-        var urlAddressResult = UrlAddress.Create(request.UrlAddress);
-
-        var result = Result.Merge(nameResult, urlAddressResult);
-
-        if (result.IsFailed)
-            return Result.Fail<int>(result.Errors);
-        //*************************************************
-
-        //*************************************************
-        var targetAppResult = foundedUser.UpdateTargetApp(request.TargetAppId, nameResult.Value, urlAddressResult.Value, request.MonitoringIntervalInSeconds);
+        var targetAppResult = foundedUser.DeleteTargetApp(request.TargetAppId);
 
         if (targetAppResult.IsFailed)
-            return Result.Fail<int>(targetAppResult.Errors);
+            return Result.Fail(targetAppResult.Errors);
 
         //*************************************************
         await _userRepository.SaveAsync(cancellationToken);
         await _urlSchedulerService.RestartAsync(cancellationToken);
-        return targetAppResult.Value.Id;
+        return Result.Ok().WithSuccess("Target App has been deleted");
         //*************************************************
     }
 }

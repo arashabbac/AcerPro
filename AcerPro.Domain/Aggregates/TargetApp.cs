@@ -49,6 +49,7 @@ public class TargetApp : Entity<int>
     public IReadOnlyList<Notifier> Notifiers => _notifiers;
     public int UserId { get; private set; }
     public User? User { get; private set; }
+    public bool IsDeleted { get; private set; }
 
     public Result<TargetApp> Update(Name name,
         UrlAddress urlAddress,
@@ -74,6 +75,7 @@ public class TargetApp : Entity<int>
     }
 
     internal void Healthy() => IsHealthy = true;
+    internal void Delete() => IsDeleted = true;
 
     internal Result<Notifier> AddNotifier(string address,NotifierType notifierType)
     {

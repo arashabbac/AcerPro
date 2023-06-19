@@ -111,6 +111,17 @@ public sealed class User : AggregateRoot<int>
         return result;
     }
 
+    public Result<TargetApp> DeleteTargetApp(int targetAppId)
+    {
+        var targetApp = _targetApps.Where(c => c.Id == targetAppId).FirstOrDefault();
+
+        if (targetApp is null)
+            return Result.Fail("TargetApp not found");
+
+        targetApp.Delete();
+        return Result.Ok();
+    }
+
     public Result<Notifier> AddNotifierToTargetApp(int targetAppId,
         string notifierAddress,
         NotifierType notifierType)

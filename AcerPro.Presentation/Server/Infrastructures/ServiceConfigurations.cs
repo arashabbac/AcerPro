@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog.Sinks.MSSqlServer;
+using Serilog;
 
 namespace AcerPro.Presentation.Server.Infrastructures;
 

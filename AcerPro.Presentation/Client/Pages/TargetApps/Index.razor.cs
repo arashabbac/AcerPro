@@ -19,6 +19,11 @@ public partial class Index
 
     protected override async Task OnInitializedAsync()
     {
+        await FetchTargetApps();
+    }
+
+    async Task FetchTargetApps()
+    {
         _loading = true;
         TargetApps = await UserService.GetAllTargetAppsAsync();
         _loading = false;
@@ -32,5 +37,11 @@ public partial class Index
         }
 
         StateHasChanged();
+    }
+
+    async Task DeleteTargetAppAsync(int id) 
+    {
+        await UserService.DeleteTargetAppAsync(id);
+        await FetchTargetApps();
     }
 }

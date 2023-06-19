@@ -15,5 +15,7 @@ internal class NotifierMapping : IEntityTypeConfiguration<Notifier>
             .HasMaxLength(Notifier.AddressMaxLength)
             .IsUnicode(false)
             .IsRequired();
+
+        builder.HasQueryFilter(c => c.IsDeleted == false);
     }
 }

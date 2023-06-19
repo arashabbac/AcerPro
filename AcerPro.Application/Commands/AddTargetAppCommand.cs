@@ -9,4 +9,3 @@ public record AddTargetAppCommand(string Name,
 {
     public int UserId { get; set; }
 }
-

@@ -5,13 +5,14 @@ using AcerPro.Presentation.Server.Infrastructures;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace AcerPro.Presentation.Server.Controllers;
 
 public class UsersController : BaseController
 {
-    public UsersController(ISender sender, IHttpContextAccessor httpContextAccessor) : base(sender)
+    public UsersController(ISender sender, IHttpContextAccessor httpContextAccessor, ILogger<UsersController> logger) : base(sender,logger)
     {
         AuthenticatedUser = httpContextAccessor.HttpContext?.Items["User"] as UserDto;
     }
@@ -70,6 +71,15 @@ public class UsersController : BaseController
         command.TargetAppId = id;
         command.UserId = AuthenticatedUser!.Id;
         var result = await Sender.Send(command);
+
+        return APIResult(result);
+    }
+
+    [HttpDelete("target-app/{id}")]
+    [Authorize]
+    public async Task<IActionResult> DeleteTargetApp(int id)
+    {
+        var result = await Sender.Send(new DeleteTargetAppCommand(id,AuthenticatedUser!.Id));
 
         return APIResult(result);
     }

@@ -29,5 +29,7 @@ internal class TargetAppMapping : IEntityTypeConfiguration<TargetApp>
             .WithOne(c=> c.TargetApp)
             .HasForeignKey(c=>c.TargetAppId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(c => c.IsDeleted == false);
     }
 }

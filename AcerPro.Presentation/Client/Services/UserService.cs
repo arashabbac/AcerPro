@@ -56,7 +56,7 @@ public class UserService : BaseHttpClientService
 
     public async Task AddTargetAppAsync(TargetAppFormViewModel viewModel)
     {
-        var response = await PostAsJsonAsync($"users/target-app", viewModel, true);
+        var response = await PostAsJsonAsync($"users/target-app", viewModel,true);
 
         if (response.IsSuccess)
         {
@@ -72,6 +72,11 @@ public class UserService : BaseHttpClientService
         {
             _navigationManager.NavigateTo("/target-apps");
         }
+    }
+
+    public async Task DeleteTargetAppAsync(int id)
+    {
+        await DeleteAsync($"users/target-app/{id}", true);
     }
 
     public async Task<UserViewModel> GetCurrentUserAsync()
