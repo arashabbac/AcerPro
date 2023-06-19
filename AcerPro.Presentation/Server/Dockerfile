@@ -3,7 +3,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
@@ -25,4 +24,5 @@ RUN dotnet publish "AcerPro.Presentation.Server.csproj" -c Release -o /app/publi
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/g' /etc/ssl/openssl.cnf
 ENTRYPOINT ["dotnet", "AcerPro.Presentation.Server.dll"]

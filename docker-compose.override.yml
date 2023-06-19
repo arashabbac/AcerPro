@@ -3,8 +3,8 @@ version: '3.4'
 services:
   acerpro.presentation.server:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
     ports:
       - "5000:80"
     depends_on:

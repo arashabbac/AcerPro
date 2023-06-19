@@ -45,7 +45,6 @@ else
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-app.UseHttpsRedirection();
 
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
@@ -58,16 +57,3 @@ app.MapControllers();
 app.MapFallbackToFile("index.html");
 
 app.Run();
-
-
-static void SetupLogger(IConfiguration configuration)
-{
-    // Configure Serilog to use an MSSqlServer sink
-    Log.Logger = new LoggerConfiguration()
-        .WriteTo.Console().MinimumLevel.Information()
-        .WriteTo.MSSqlServer(
-            connectionString: configuration.GetConnectionString("ConnectionString"),
-            sinkOptions: new MSSqlServerSinkOptions { TableName = "Logs" }).MinimumLevel.Warning()
-        .CreateLogger();
-
-}
