@@ -24,7 +24,7 @@
                         <PropertyColumn Title="Name" Property="@(c=> c.Name)" />
                         <PropertyColumn Title="Url Address" Property="@(c=>c.UrlAddress)" />
                         <PropertyColumn Title="Monitoring Interval(sec)" Property="@(c=> c.MonitoringIntervalInSeconds)" />
-                        <PropertyColumn Title="Healthy" Property="@(c=> c.IsHealthy)" >
+                        <PropertyColumn Title="Status" Property="@(c=> c.IsHealthy)" >
                             @if(context.IsHealthy.HasValue && context.IsHealthy.Value)
                             {
                                 <Tag Color="green">Healthy</Tag>

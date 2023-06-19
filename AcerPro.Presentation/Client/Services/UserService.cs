@@ -56,7 +56,7 @@ public class UserService : BaseHttpClientService
 
     public async Task AddTargetAppAsync(TargetAppFormViewModel viewModel)
     {
-        var response = await PostAsJsonAsync($"users/target-app", viewModel);
+        var response = await PostAsJsonAsync($"users/target-app", viewModel, true);
 
         if (response.IsSuccess)
         {
@@ -66,7 +66,7 @@ public class UserService : BaseHttpClientService
 
     public async Task UpdateTargetAppAsync(TargetAppFormViewModel viewModel)
     {
-        var response = await PutAsJsonAsync($"users/target-app/{viewModel.Id}", viewModel);
+        var response = await PutAsJsonAsync($"users/target-app/{viewModel.Id}", viewModel,true);
 
         if (response.IsSuccess)
         {
@@ -97,7 +97,7 @@ public class UserService : BaseHttpClientService
 
     public async Task AddNotifierAsync(NotifierFormViewModel viewModel)
     {
-        var response = await PostAsJsonAsync($"users/target-app/notifier", viewModel);
+        var response = await PostAsJsonAsync($"users/target-app/notifier", viewModel,true);
 
         if (response.IsSuccess)
         {
