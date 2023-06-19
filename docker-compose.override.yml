@@ -1,23 +1,22 @@
 version: '3.4'
 
 services:
-  fintranettest.presentation.server:
+  acerpro.presentation.server:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - "5000:80"       
+      - "5000:80"
     depends_on:
       - sqlserverdb
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
-
   sqlserverdb:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     ports:
       - "1433:1433"
     environment:
-        SA_PASSWORD: "MyPassword@123456"
-        ACCEPT_EULA: "Y"
+      SA_PASSWORD: "MyPassword@123456"
+      ACCEPT_EULA: "Y"

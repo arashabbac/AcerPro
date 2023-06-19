@@ -3,10 +3,10 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>b93d2e59-5fda-4dbc-9abc-40aaad7d6e19</ProjectGuid>
+    <ProjectGuid>cc1c00c8-49f7-463a-9a39-5ef13150a229</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>fintranettest.presentation.server</DockerServiceName>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/login</DockerServiceUrl>
+    <DockerServiceName>acerpro.presentation.server</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
