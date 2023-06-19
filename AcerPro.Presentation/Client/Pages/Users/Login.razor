@@ -1,7 +1,7 @@
 ﻿@layout EmptyLayout
 @page "/login"
 
-<div class="container mt-5">
+<div class="container mt-5 border-0">
     <div class="card w-50 m-auto">
         <div class="card-body">
             <EditForm Model="Model" OnValidSubmit="LoginSubmit">
@@ -45,9 +45,9 @@
                             </div>
                         </div>
 
-                        <div class="d-sm-flex justify-content-between">
+                        <div class="d-sm-flex justify-content-end">
                             <div class="field-wrapper">
-                                <Button HtmlType="submit" Style="margin-right:0.3em">Login</Button>
+                                <Button Type="@ButtonType.Primary" HtmlType="submit" Style="margin-right:0.3em">Login</Button>
                                 <Button HtmlType="button" Style="margin-right:0.3em" OnClick='() => NavigationManager.NavigateTo("/register")'>Register</Button>
                             </div>
                         </div>

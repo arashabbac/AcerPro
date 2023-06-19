@@ -62,8 +62,8 @@
     </div>
 
     <div class="d-flex justify-content-end">
-        <Button HtmlType="submit" Style="margin-right:0.3em">@(Model.Id.HasValue ? "Edit" : "Register")</Button>
-        <Button OnClick="@(() => NavigationManager.NavigateTo("/"))" HtmlType="button">Return</Button>
+        <Button Type="@ButtonType.Primary" HtmlType="submit" Style="margin-right:0.3em">@(Model.Id.HasValue ? "Edit" : "Register")</Button>
+        <Button Type="@ButtonType.Dashed" OnClick="@(() => NavigationManager.NavigateTo("/"))" HtmlType="button">Return</Button>
     </div>
 
 </EditForm>

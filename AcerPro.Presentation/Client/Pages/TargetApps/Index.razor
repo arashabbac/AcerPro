@@ -16,7 +16,7 @@
             else
             {
                 <p class="card-description d-flex justify-content-end">
-                    <Button OnClick="@(() => NavigationManager.NavigateTo("/target-apps/add"))">Create</Button>
+                    <Button Type="@ButtonType.Primary" OnClick="@(() => NavigationManager.NavigateTo("/target-apps/add"))">Create</Button>
                 </p>
 
                 <Table DataSource="@TargetApps" TItem="TargetAppViewModel" Loading="@_loading" OnExpand="OnRowExpand">
@@ -37,8 +37,8 @@
                         <PropertyColumn Title="Last Down DateTime" Property="@(c=> c.LastDownDateTime)" />
                         <PropertyColumn Title="Last Modified DateTime" Property="@(c=> c.LastModifiedDateTime)" />
                         <PropertyColumn Title="Actions" Property="@(c=> c.Id)">
-                            <Button OnClick="@(() => NavigationManager.NavigateTo($"/target-apps/edit/{context.Id}"))" HtmlType="button">Edit</Button>
-                            <Button Type="@ButtonType.Link" OnClick="@(() => NavigationManager.NavigateTo($"/target-apps/add-notifier/{context.Id}"))" HtmlType="button">Add Notifier</Button>
+                            <Button Size="@ButtonSize.Small" OnClick="@(() => NavigationManager.NavigateTo($"/target-apps/edit/{context.Id}"))" HtmlType="button">Edit</Button>
+                            <Button Type="@ButtonType.Default" Size="@ButtonSize.Small" OnClick="@(() => NavigationManager.NavigateTo($"/target-apps/add-notifier/{context.Id}"))" HtmlType="button">Add Notifier</Button>
                         </PropertyColumn>
                     </RowTemplate>
                     <ExpandTemplate Context="rowData">

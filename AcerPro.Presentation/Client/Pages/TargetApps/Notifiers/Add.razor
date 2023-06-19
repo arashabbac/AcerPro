@@ -2,7 +2,7 @@
 @using AcerPro.Presentation.Client.ViewModels;
 
 <div class="container mt-5">
-    <div class="card w-75 m-auto">
+    <div class="card w-75 m-auto border-0">
         <div class="card-body">
             <h4 class="card-title mb-3">Add Notifier</h4>
             <EditForm Model="Model" OnValidSubmit="Submit">
@@ -44,7 +44,7 @@
 
                 <div class="d-flex justify-content-end">
                     <Button HtmlType="submit" Style="margin-right:0.3em">Add</Button>
-                    <Button OnClick="@(() => NavigationManager.NavigateTo("/target-apps"))" HtmlType="button">Return</Button>
+                    <Button OnClick="@(() => NavigationManager.NavigateTo("/target-apps"))" Type="@ButtonType.Dashed" HtmlType="button">Return</Button>
                 </div>
 
             </EditForm>

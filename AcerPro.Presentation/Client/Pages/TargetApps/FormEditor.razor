@@ -30,7 +30,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="@nameof(Model.MonitoringIntervalInSeconds)">Monitoring Interval In Seconds</label>
                 <div class="col-sm-9">
-                    <AntDesign.InputNumber name="@nameof(Model.MonitoringIntervalInSeconds)" class="form-control" @bind-Value="Model.MonitoringIntervalInSeconds"></AntDesign.InputNumber>
+                    <AntDesign.InputNumber Min="1" Size="@InputSize.Large" name="@nameof(Model.MonitoringIntervalInSeconds)" class="form-control" @bind-Value="Model.MonitoringIntervalInSeconds"></AntDesign.InputNumber>
                     <div class="error mt-2 text-danger">
                         <ValidationMessage For="() => Model.MonitoringIntervalInSeconds" />
                     </div>
@@ -41,8 +41,8 @@
     </div>
 
     <div class="d-flex justify-content-end">
-        <Button HtmlType="submit" Style="margin-right:0.3em">@(Model.Id.HasValue ? "Edit" : "Add")</Button>
-        <Button OnClick="@(() => NavigationManager.NavigateTo("/target-apps"))" HtmlType="button">Return</Button>
+        <Button Type="@ButtonType.Primary" HtmlType="submit" Style="margin-right:0.3em">@(Model.Id.HasValue ? "Edit" : "Add")</Button>
+        <Button OnClick="@(() => NavigationManager.NavigateTo("/target-apps"))" Type="@ButtonType.Dashed" HtmlType="button">Return</Button>
     </div>
 
 </EditForm>
