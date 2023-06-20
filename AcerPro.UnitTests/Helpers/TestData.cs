@@ -18,7 +18,7 @@ public static class TestData
             new object[] { StringGenerator.Create(8,StringGeneratorType.Complex) },
     };
 
-    public static IEnumerable<object[]> IncorrectValuesFormPassword =>
+    public static IEnumerable<object[]> IncorrectValuesForPassword =>
         new List<object[]>
         {
                     new object[] { StringGenerator.Create(6,StringGeneratorType.NumberAndCharacter) },

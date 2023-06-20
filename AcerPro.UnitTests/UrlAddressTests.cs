@@ -18,7 +18,7 @@ public class UrlAddressTests
 
     [Theory]
     [MemberData(nameof(TestData.IncorrectValuesForUrlAddress), MemberType = typeof(TestData))]
-    public void UrlAddress_CanNot_Created_With_Incorrect_Value(string value)
+    public void UrlAddress_CanNot_BeCreated_With_Incorrect_Value(string value)
     {
         //Act
         var result = UrlAddress.Create(value);

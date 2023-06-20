@@ -18,7 +18,7 @@ public class NameTests
 
     [Theory]
     [MemberData(nameof(TestData.IncorrectValuesForName), MemberType = typeof(TestData))]
-    public void Name_CanNot_Created_With_Incorrect_Value(string value)
+    public void Name_CanNot_BeCreated_With_Incorrect_Value(string value)
     {
         //Act
         var result = Name.Create(value);
