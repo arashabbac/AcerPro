@@ -4,7 +4,7 @@ public class SMSNotifierService : INotifierService
 {
     public Task NotifyAsync(string address)
     {
-        Console.WriteLine($"Email has been sent to {address}");
+        Console.WriteLine($"SMS has been sent to {address}");
         return Task.CompletedTask;
     }
 }
